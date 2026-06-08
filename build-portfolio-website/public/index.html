@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avijit Chakroborty | EEE Portfolio</title>
+  <meta name="description" content="Portfolio of Avijit Chakroborty — Electrical & Electronic Engineering student specializing in robotics, automation, and embedded systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============ RESET & TOKENS ============ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:      #10b981;
+      --primary-dark: #059669;
+      --accent:       #06b6d4;
+      --bg:           #ffffff;
+      --bg-alt:       #f0fdf8;
+      --surface:      #ffffff;
+      --border:       #d1fae5;
+      --border-soft:  #e2e8f0;
+      --text:         #0f172a;
+      --text-muted:   #64748b;
+      --text-light:   #94a3b8;
+      --radius:       0.75rem;
+      --shadow-sm:    0 1px 4px rgba(0,0,0,.06);
+      --shadow-md:    0 4px 20px rgba(0,0,0,.08);
+      --shadow-lg:    0 12px 40px rgba(16,185,129,.15);
+    }
+
+    [data-theme="dark"] {
+      --bg:           #0b1120;
+      --bg-alt:       #111827;
+      --surface:      #1a2234;
+      --border:       #1e3a2e;
+      --border-soft:  #1e293b;
+      --text:         #f1f5f9;
+      --text-muted:   #94a3b8;
+      --text-light:   #64748b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ============ NAVIGATION ============ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled { box-shadow: var(--shadow-md); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 0.4rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+      background: rgba(16,185,129,.1);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Theme toggle */
+    .theme-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-soft);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 64px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 1rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .mobile-nav.open { display: block; }
+    .mobile-nav a {
+      display: block;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--primary); background: rgba(16,185,129,.08); }
+
+    /* ============ HERO ============ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 1.5rem 4rem;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16,185,129,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      width: 100%;
+    }
+
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-photo {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 0 8px rgba(16,185,129,.12), var(--shadow-lg);
+      animation: float 4s ease-in-out infinite;
+      display: block;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 10px; right: -10px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.25);
+      border-radius: 9999px;
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-meta-item svg { color: var(--primary); flex-shrink: 0; }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 0.55rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border-soft);
+    }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+
+    /* ============ SECTIONS ============ */
+    .section {
+      padding: 5rem 1.5rem;
+    }
+    .section-alt { background: var(--bg-alt); }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 550px;
+      line-height: 1.7;
+    }
+
+    .section-head { margin-bottom: 3.5rem; }
+    .section-head.centered { text-align: center; }
+    .section-head.centered .section-sub { margin: 0 auto; }
+
+    /* Divider accent */
+    .section-head::after {
+      content: '';
+      display: block;
+      width: 48px; height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      margin-top: 1.25rem;
+    }
+    .section-head.centered::after { margin: 1.25rem auto 0; }
+
+    /* ============ CARDS ============ */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border);
+    }
+
+    /* ============ ABOUT ============ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+    .stat-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+
+    .stat-icon { font-size: 1.75rem; margin-bottom: 0.6rem; }
+    .stat-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .stat-lbl {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ============ SKILLS ============ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .skill-item { margin-bottom: 1.25rem; }
+    .skill-item:last-child { margin-bottom: 0; }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .skill-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .skill-pct {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: var(--bg-alt);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 9999px;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+
+    .tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      background: rgba(16,185,129,.1);
+      color: var(--primary);
+      border: 1px solid rgba(16,185,129,.2);
+      transition: all 0.2s;
+    }
+    .tag:hover { background: var(--primary); color: #fff; }
+
+    .tag-outline {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-soft);
+    }
+    .tag-outline:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
+
+    .domain-group { margin-bottom: 1.25rem; }
+    .domain-group:last-child { margin-bottom: 0; }
+    .domain-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============ CERTIFICATES ============ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--primary);
+    }
+    .cert-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border); }
+
+    .cert-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .cert-icon {
+      width: 42px; height: 42px;
+      border-radius: 0.5rem;
+      background: rgba(16,185,129,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+    }
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+    .badge-cyan  { background: #cffafe; color: #0e7490; }
+
+    .cert-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .cert-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .cert-desc {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin: 0.75rem 0;
+      line-height: 1.6;
+    }
+
+    /* ============ EXPERIENCE / COMPETITIONS ============ */
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.25s;
+    }
+    .exp-card:hover { box-shadow: var(--shadow-lg); border-color: var(--border); }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .exp-logo {
+      width: 50px; height: 50px;
+      border-radius: 0.65rem;
+      background: rgba(16,185,129,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .exp-info { flex: 1; }
+    .exp-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .exp-sub { font-size: 0.85rem; color: var(--text-muted); }
+
+    .exp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .exp-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .exp-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      transition: all 0.25s;
+    }
+    .comp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border); }
+
+    .comp-icon {
+      width: 40px; height: 40px;
+      border-radius: 0.5rem;
+      background: rgba(6,182,212,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    .comp-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .comp-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ============ PROJECTS ============ */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .proj-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border); }
+    .proj-card:hover::after { transform: scaleX(1); }
+
+    .proj-icon {
+      width: 44px; height: 44px;
+      border-radius: 0.6rem;
+      background: rgba(16,185,129,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .proj-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .proj-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ============ CONTACT ============ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-info-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+
+    .contact-info-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .contact-info-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateX(4px); }
+
+    .contact-icon-wrap {
+      width: 42px; height: 42px;
+      border-radius: 0.55rem;
+      background: rgba(16,185,129,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-lbl {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+    .contact-val {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .ref-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      margin-top: 0.25rem;
+    }
+    .ref-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 0.65rem;
+    }
+    .ref-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .ref-role {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .ref-links { display: flex; flex-direction: column; gap: 0.3rem; }
+    .ref-links a {
+      font-size: 0.83rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .ref-links a:hover { text-decoration: underline; }
+
+    /* Contact Form */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group:last-of-type { margin-bottom: 0; }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16,185,129,.12);
+    }
+    .form-textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit { width: 100%; margin-top: 1.25rem; justify-content: center; }
+
+    /* ============ FOOTER ============ */
+    .footer {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border-soft);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-name {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ============ ANIMATIONS ============ */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 900px) {
+      .about-grid,
+      .skills-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+
+      .hero-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .hero-meta { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .hero-desc { margin: 0 auto 2rem; }
+
+      .highlights-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 5rem 1rem 3rem; }
+      .hero-photo { width: 170px; height: 170px; }
+
+      .section { padding: 3.5rem 1rem; }
+
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .cert-grid,
+      .comp-grid,
+      .proj-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#home">Avijit <span>Chakroborty</span></a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <span id="themeIcon">&#9790;</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <div class="hero-photo-wrap">
+        <img
+          class="hero-photo"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-09%20at%2016.23.19_3adacff6-zMLKbTfA2nXYhzsF62lUdsDkpJl786.jpg"
+          alt="Avijit Chakroborty — EEE Student"
+          crossorigin="anonymous"
+        />
+        <span class="hero-badge">CGPA 3.77 / 4.0</span>
+      </div>
+
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+          Available for Opportunities
+        </div>
+        <h1 class="hero-name">Avijit<br>Chakroborty</h1>
+        <p class="hero-role">Electrical &amp; Electronic Engineering Student</p>
+        <p class="hero-desc">
+          Passionate about robotics, automation, and innovative engineering solutions.
+          Specializing in embedded systems, power electronics, and machine learning applications at Sylhet Engineering College.
+        </p>
+
+        <div class="hero-meta">
+          <span class="hero-meta-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.06 6.06l1.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            01771837908
+          </span>
+          <span class="hero-meta-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            avijitchakroborty84@gmail.com
+          </span>
+          <span class="hero-meta-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sylhet, Bangladesh
+          </span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-primary">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            About Me
+          </a>
+          <button class="btn btn-ghost" onclick="downloadCV()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </button>
+          <a href="#contact" class="btn btn-ghost">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          About Me
+        </div>
+        <h2 class="section-title">Who I Am</h2>
+        <p class="section-sub">Dedicated engineering student bridging theory with real-world automation solutions.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I am Avijit Chakroborty, a dedicated Electrical and Electronic Engineering student at Sylhet Engineering
+            College with a passion for robotics and automation. Currently pursuing my Bachelor's degree with a CGPA
+            of 3.77/4.0, I am working on my thesis titled "A Deep Learning Approach to Build a Lightweight Skin
+            Diseases Classifier by Means of Transfer Learning."
+          </p>
+          <p>
+            My journey in engineering has been marked by hands-on experience in embedded systems, power electronics,
+            and machine learning. I have actively participated in various robotics competitions and served as an
+            instructor at our college's Robotics Club, sharing knowledge and fostering innovation among peers.
+          </p>
+          <p>
+            With expertise in tools like Proteus, ESP32, Arduino, MATLAB, and Python, I enjoy creating practical
+            solutions that bridge theoretical knowledge with real-world applications. My goal is to contribute to
+            the advancement of automation and smart systems technology.
+          </p>
+        </div>
+
+        <div class="stat-grid reveal reveal-delay-1">
+          <div class="stat-card">
+            <div class="stat-icon">&#127891;</div>
+            <div class="stat-val">3.77</div>
+            <div class="stat-lbl">CGPA / 4.0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">&#127942;</div>
+            <div class="stat-val">2nd</div>
+            <div class="stat-lbl">Runner Up</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">&#129302;</div>
+            <div class="stat-val">5+</div>
+            <div class="stat-lbl">Competitions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">&#128161;</div>
+            <div class="stat-val">4+</div>
+            <div class="stat-lbl">Projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-head centered">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          Skills &amp; Expertise
+        </div>
+        <h2 class="section-title">Technical Proficiencies</h2>
+        <p class="section-sub">Developed through academic projects, competitions, and hands-on industrial training.</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Technical Skills -->
+        <div class="card reveal">
+          <div class="domain-title" style="font-size:1rem; margin-bottom:1.5rem; font-weight:700; color:var(--text);">Technical Skills</div>
+
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">Embedded Systems (ESP32, Arduino)</span><span class="skill-pct">90%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">MATLAB &amp; Simulink</span><span class="skill-pct">85%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">Python Programming</span><span class="skill-pct">80%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">Power Electronics</span><span class="skill-pct">85%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">Proteus Simulation</span><span class="skill-pct">88%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row"><span class="skill-name">Machine Learning</span><span class="skill-pct">75%</span></div>
+            <div class="progress-track"><div class="progress-bar" data-w="75"></div></div>
+          </div>
+        </div>
+
+        <!-- Tools & Domains -->
+        <div class="reveal reveal-delay-1" style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div class="card">
+            <div class="domain-title" style="font-size:1rem; margin-bottom:1rem; font-weight:700; color:var(--text);">Software &amp; Tools</div>
+            <div class="tags-wrap">
+              <span class="tag">Proteus</span>
+              <span class="tag">ESP32</span>
+              <span class="tag">Arduino</span>
+              <span class="tag">AutoCAD</span>
+              <span class="tag">Simulink</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Python</span>
+              <span class="tag">C Language</span>
+              <span class="tag">PowerPoint</span>
+              <span class="tag">Excel</span>
+              <span class="tag">Machine Learning</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="domain-title" style="font-size:1rem; margin-bottom:1rem; font-weight:700; color:var(--text);">Domain Expertise</div>
+            <div class="domain-group">
+              <div class="domain-title">Power Systems</div>
+              <div class="tags-wrap">
+                <span class="tag tag-outline">Power Electronics</span>
+                <span class="tag tag-outline">Power Plant Engineering</span>
+                <span class="tag tag-outline">Power System Protection</span>
+              </div>
+            </div>
+            <div class="domain-group">
+              <div class="domain-title">Digital Systems</div>
+              <div class="tags-wrap">
+                <span class="tag tag-outline">Digital Signal Processing</span>
+                <span class="tag tag-outline">VLSI</span>
+                <span class="tag tag-outline">Microprocessors</span>
+              </div>
+            </div>
+            <div class="domain-group">
+              <div class="domain-title">Control &amp; Automation</div>
+              <div class="tags-wrap">
+                <span class="tag tag-outline">Control Systems</span>
+                <span class="tag tag-outline">Embedded Systems</span>
+                <span class="tag tag-outline">IoT</span>
+                <span class="tag tag-outline">PLC</span>
+                <span class="tag tag-outline">VFD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CERTIFICATES ========== -->
+  <section id="certificates" class="section section-alt">
+    <div class="container">
+      <div class="section-head centered">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          Certificates &amp; Training
+        </div>
+        <h2 class="section-title">Professional Development</h2>
+        <p class="section-sub">Specialized courses and industry training programs that sharpen real-world skills.</p>
+      </div>
+
+      <div class="cert-grid">
+        <div class="cert-card reveal">
+          <div class="cert-top">
+            <div class="cert-icon">&#127891;</div>
+            <span class="badge badge-blue">Online Course</span>
+          </div>
+          <div class="cert-title">Control Design Onramp with Simulink</div>
+          <div class="cert-meta">&#127970; MATLAB Academy</div>
+          <div class="cert-meta">&#128197; 2024</div>
+          <div class="cert-desc">Advanced control system design using the Simulink environment.</div>
+          <div class="tags-wrap">
+            <span class="tag tag-outline">Simulink</span>
+            <span class="tag tag-outline">Control Systems</span>
+            <span class="tag tag-outline">MATLAB</span>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-top">
+            <div class="cert-icon">&#127891;</div>
+            <span class="badge badge-green">Professional Training</span>
+          </div>
+          <div class="cert-title">30-Day Webinar on PLC, VFD &amp; HMI</div>
+          <div class="cert-meta">&#127970; Gobeshona Learning Academy</div>
+          <div class="cert-meta">&#128197; 2024</div>
+          <div class="cert-desc">Comprehensive training on industrial automation systems.</div>
+          <div class="tags-wrap">
+            <span class="tag tag-outline">PLC Programming</span>
+            <span class="tag tag-outline">VFD</span>
+            <span class="tag tag-outline">HMI Design</span>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-2">
+          <div class="cert-top">
+            <div class="cert-icon">&#127891;</div>
+            <span class="badge badge-cyan">Workshop</span>
+          </div>
+          <div class="cert-title">Master Class on Machine Learning</div>
+          <div class="cert-meta">&#127970; Pantech Prolabs India Pvt Ltd</div>
+          <div class="cert-meta">&#128197; 2022</div>
+          <div class="cert-desc">Practical machine learning fundamentals, algorithms, and model deployment.</div>
+          <div class="tags-wrap">
+            <span class="tag tag-outline">ML Algorithms</span>
+            <span class="tag tag-outline">Python</span>
+            <span class="tag tag-outline">Data Science</span>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-top">
+            <div class="cert-icon">&#127891;</div>
+            <span class="badge badge-amber">Professional Certification</span>
+          </div>
+          <div class="cert-title">Basic Computer Training — Grade A</div>
+          <div class="cert-meta">&#127970; Bangladesh Technical Board</div>
+          <div class="cert-meta">&#128197; 2020</div>
+          <div class="cert-desc">Fundamental computer skills: Microsoft Word, Excel, and PowerPoint.</div>
+          <div class="tags-wrap">
+            <span class="tag tag-outline">Microsoft Office</span>
+            <span class="tag tag-outline">Computer Operations</span>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-2">
+          <div class="cert-top">
+            <div class="cert-icon">&#127891;</div>
+            <span class="badge badge-blue">Workshop</span>
+          </div>
+          <div class="cert-title">Single Phase Electrical Wiring &amp; Installation</div>
+          <div class="cert-meta">&#127970; Sylhet Engineering College</div>
+          <div class="cert-meta">&#128197; 2022</div>
+          <div class="cert-desc">Practical training on electrical wiring systems and installation techniques.</div>
+          <div class="tags-wrap">
+            <span class="tag tag-outline">Electrical Wiring</span>
+            <span class="tag tag-outline">Installation</span>
+            <span class="tag tag-outline">Safety</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPERIENCE ========== -->
+  <section id="experience" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          Industrial Experience &amp; Competitions
+        </div>
+        <h2 class="section-title">Real-World Exposure</h2>
+        <p class="section-sub">Hands-on industrial training and competitive robotics participation.</p>
+      </div>
+
+      <!-- Industrial Training -->
+      <h3 style="font-size:1.15rem; font-weight:700; color:var(--text); margin-bottom:1.25rem;">Industrial Training</h3>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div class="exp-logo">&#127981;</div>
+            <div class="exp-info">
+              <div class="exp-title">Training Institute for Chemical Industries (TICI)</div>
+              <div class="exp-sub">Industrial Technology — Electrical Engineering &amp; Instrumentation</div>
+            </div>
+          </div>
+          <span class="badge badge-green">Grade A+</span>
+        </div>
+
+        <div class="exp-meta">
+          <span class="exp-meta-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Narsingdi, Bangladesh
+          </span>
+          <span class="exp-meta-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2023
+          </span>
+          <span class="exp-meta-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Electrical Engineering &amp; Instrumentation
+          </span>
+        </div>
+
+        <p class="exp-desc">
+          Comprehensive hands-on training in industrial electrical systems, instrumentation, and process control for chemical industries.
+          Gained practical experience with industrial automation systems, safety protocols, and maintenance procedures.
+        </p>
+
+        <div style="margin-bottom:1.25rem;">
+          <div class="domain-title" style="margin-bottom:0.75rem;">Key Highlights</div>
+          <div class="highlights-grid">
+            <div class="highlight-item"><div class="dot"></div><span>Achieved Grade A+ performance</span></div>
+            <div class="highlight-item"><div class="dot"></div><span>Hands-on experience with industrial equipment</span></div>
+            <div class="highlight-item"><div class="dot"></div><span>Safety training and protocols</span></div>
+            <div class="highlight-item"><div class="dot"></div><span>Process control systems operation</span></div>
+          </div>
+        </div>
+
+        <div class="domain-title" style="margin-bottom:0.6rem;">Skills Acquired</div>
+        <div class="tags-wrap">
+          <span class="tag">Industrial Automation</span>
+          <span class="tag">Process Control</span>
+          <span class="tag">Instrumentation</span>
+          <span class="tag">Safety Protocols</span>
+          <span class="tag">Maintenance</span>
+        </div>
+      </div>
+
+      <!-- Competitions -->
+      <h3 style="font-size:1.15rem; font-weight:700; color:var(--text); margin-top:3rem; margin-bottom:1.25rem;">Robotics Competitions</h3>
+
+      <div class="comp-grid">
+        <div class="comp-card reveal">
+          <div class="comp-icon">&#127942;</div>
+          <div style="margin-bottom:0.5rem;"><span class="badge badge-amber">2nd Runner Up</span></div>
+          <div class="comp-name">Technoventure 2.0</div>
+          <div class="comp-meta">&#128197; 2020</div>
+          <div class="comp-meta">&#128205; Sylhet Engineering College</div>
+          <div class="comp-meta">&#128101; Engineering Innovation</div>
+        </div>
+
+        <div class="comp-card reveal reveal-delay-1">
+          <div class="comp-icon">&#129302;</div>
+          <div style="margin-bottom:0.5rem;"><span class="badge badge-blue">Participant</span></div>
+          <div class="comp-name">Robo Carnival 2024</div>
+          <div class="comp-meta">&#128197; 2024</div>
+          <div class="comp-meta">&#128101; Industrial Line Tracker Segment</div>
+        </div>
+
+        <div class="comp-card reveal reveal-delay-2">
+          <div class="comp-icon">&#129302;</div>
+          <div style="margin-bottom:0.5rem;"><span class="badge badge-blue">Participant</span></div>
+          <div class="comp-name">First Technoxian Bangladesh</div>
+          <div class="comp-meta">&#128197; 2024</div>
+          <div class="comp-meta">&#128101; Line Following Robot</div>
+        </div>
+
+        <div class="comp-card reveal reveal-delay-1">
+          <div class="comp-icon">&#129302;</div>
+          <div style="margin-bottom:0.5rem;"><span class="badge badge-blue">Participant</span></div>
+          <div class="comp-name">Technoventure 3.0</div>
+          <div class="comp-meta">&#128197; 2024</div>
+          <div class="comp-meta">&#128101; Line Follower Robot</div>
+        </div>
+
+        <div class="comp-card reveal reveal-delay-2">
+          <div class="comp-icon">&#129302;</div>
+          <div style="margin-bottom:0.5rem;"><span class="badge badge-blue">Participant</span></div>
+          <div class="comp-name">Ignition 2023 — National Mechanical Festival</div>
+          <div class="comp-meta">&#128197; 2023</div>
+          <div class="comp-meta">&#128101; LFR Segment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section id="projects" class="section section-alt">
+    <div class="container">
+      <div class="section-head centered">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          Academic Projects
+        </div>
+        <h2 class="section-title">What I Have Built</h2>
+        <p class="section-sub">Practical engineering projects bridging classroom theory with real-world application.</p>
+      </div>
+
+      <div class="proj-grid">
+        <div class="proj-card reveal">
+          <div class="proj-icon">&#9889;</div>
+          <div class="proj-name">Three-Phase Inverter System</div>
+          <div class="proj-desc">
+            Built a variable-frequency inverter using IGBT and Arduino for motor drive applications.
+            Enables precise motor speed control in industrial settings.
+          </div>
+          <div class="tags-wrap" style="margin-top:1rem;">
+            <span class="tag tag-outline">Arduino</span>
+            <span class="tag tag-outline">IGBT</span>
+            <span class="tag tag-outline">Power Electronics</span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal reveal-delay-1">
+          <div class="proj-icon">&#128266;</div>
+          <div class="proj-name">Real-Time Audio Analyzer</div>
+          <div class="proj-desc">
+            Designed an ESP32-based system to measure sound levels and frequencies with an interactive display,
+            enabling real-time acoustic monitoring.
+          </div>
+          <div class="tags-wrap" style="margin-top:1rem;">
+            <span class="tag tag-outline">ESP32</span>
+            <span class="tag tag-outline">Signal Processing</span>
+            <span class="tag tag-outline">IoT</span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal reveal-delay-2">
+          <div class="proj-icon">&#127968;</div>
+          <div class="proj-name">Home Automation &amp; AC Regulation via IoT</div>
+          <div class="proj-desc">
+            Microcontroller-based smart switching device controllable via mobile app and website.
+            Features a dimming circuit and relay for AC load regulation.
+          </div>
+          <div class="tags-wrap" style="margin-top:1rem;">
+            <span class="tag tag-outline">IoT</span>
+            <span class="tag tag-outline">Microcontroller</span>
+            <span class="tag tag-outline">Relay</span>
+            <span class="tag tag-outline">App Control</span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal reveal-delay-1">
+          <div class="proj-icon">&#128161;</div>
+          <div class="proj-name">Smart Light Switch</div>
+          <div class="proj-desc">
+            Arduino-based lighting system featuring both manual and automatic brightness control
+            via sensors and TRIAC dimming circuit.
+          </div>
+          <div class="tags-wrap" style="margin-top:1rem;">
+            <span class="tag tag-outline">Arduino</span>
+            <span class="tag tag-outline">TRIAC</span>
+            <span class="tag tag-outline">Sensors</span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal reveal-delay-2">
+          <div class="proj-icon">&#129504;</div>
+          <div class="proj-name">Skin Disease Classifier (Thesis)</div>
+          <div class="proj-desc">
+            Deep learning approach to build a lightweight skin disease classifier using transfer learning,
+            targeting efficient deployment on resource-constrained devices.
+          </div>
+          <div class="tags-wrap" style="margin-top:1rem;">
+            <span class="tag tag-outline">Deep Learning</span>
+            <span class="tag tag-outline">Transfer Learning</span>
+            <span class="tag tag-outline">Python</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
+          Contact
+        </div>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">Open to opportunities, collaborations, and any questions you might have.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Left: Info + Reference -->
+        <div>
+          <div class="contact-info-list">
+            <a href="tel:+8801771837908" class="contact-info-card">
+              <div class="contact-icon-wrap">&#128222;</div>
+              <div>
+                <div class="contact-lbl">Phone</div>
+                <div class="contact-val">01771837908</div>
+              </div>
+            </a>
+            <a href="mailto:avijitchakroborty84@gmail.com" class="contact-info-card">
+              <div class="contact-icon-wrap">&#9993;</div>
+              <div>
+                <div class="contact-lbl">Email</div>
+                <div class="contact-val">avijitchakroborty84@gmail.com</div>
+              </div>
+            </a>
+            <div class="contact-info-card">
+              <div class="contact-icon-wrap">&#128205;</div>
+              <div>
+                <div class="contact-lbl">Location</div>
+                <div class="contact-val">Baluchor Point, Notunbazar, Sylhet, Bangladesh</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ref-card reveal">
+            <div class="ref-title">Reference</div>
+            <div class="ref-name">Md. Shahid Iqbal</div>
+            <div class="ref-role">Assistant Professor &amp; Dept Head (EEE) — Sylhet Engineering College</div>
+            <div class="ref-links">
+              <a href="mailto:shahidiqbal_05@yahoo.com">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                shahidiqbal_05@yahoo.com
+              </a>
+              <a href="tel:+8801916590472">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.06 6.06l1.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                01916590472
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="form-card reveal reveal-delay-1">
+          <div style="font-size:1.1rem; font-weight:700; color:var(--text); margin-bottom:1.5rem;">Send a Message</div>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="cName">Name *</label>
+                <input class="form-input" type="text" id="cName" name="name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cEmail">Email *</label>
+                <input class="form-input" type="email" id="cEmail" name="email" placeholder="your@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cSubject">Subject *</label>
+              <input class="form-input" type="text" id="cSubject" name="subject" placeholder="How can I help?" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cMsg">Message *</label>
+              <textarea class="form-textarea" id="cMsg" name="message" placeholder="Write your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-name">Avijit Chakroborty</div>
+      <div class="footer-copy">
+        Electrical &amp; Electronic Engineering Student &mdash; Sylhet Engineering College &mdash; Bangladesh<br/>
+        &copy; <span id="footerYear"></span> All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Footer year
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    // ---- Dark/Light mode ----
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme() {
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.innerHTML = '&#9728;';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.innerHTML = '&#9790;';
+      }
+    }
+    applyTheme();
+
+    themeToggle.addEventListener('click', function() {
+      dark = !dark;
+      applyTheme();
+    });
+
+    // ---- Navbar scroll effect ----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ---- Active nav link on scroll ----
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+
+    function setActiveLink() {
+      let current = '';
+      sections.forEach(function(sec) {
+        if (window.scrollY >= sec.offsetTop - 90) {
+          current = sec.getAttribute('id');
+        }
+      });
+      navAnchors.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', setActiveLink);
+
+    // ---- Smooth scroll for all anchor links ----
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // close mobile nav
+          document.getElementById('mobileNav').classList.remove('open');
+          document.getElementById('hamburger').classList.remove('open');
+          document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // ---- Hamburger / mobile nav ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', function() {
+      const open = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    // ---- Scroll reveal ----
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(function(el) { io.observe(el); });
+
+    // ---- Animate progress bars ----
+    const bars = document.querySelectorAll('.progress-bar');
+    const barObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const w = entry.target.getAttribute('data-w');
+          entry.target.style.width = w + '%';
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(function(b) { barObserver.observe(b); });
+
+    // ---- Contact form ----
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sent!';
+      btn.style.background = '#059669';
+      setTimeout(function() {
+        btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+        btn.style.background = '';
+      }, 3000);
+      document.getElementById('contactForm').reset();
+    });
+
+    // ---- Download CV ----
+    function downloadCV() {
+      var cvContent = [
+        'AVIJIT CHAKROBORTY',
+        'Phone: 01771837908',
+        'Email: avijitchakroborty84@gmail.com',
+        'Address: Baluchor Point, Notunbazar, Sylhet, Bangladesh',
+        '',
+        'EDUCATION',
+        'Bachelor of Science in Electrical and Electronic Engineering',
+        'Sylhet Engineering College | CGPA: 3.77 / 4.0 | 2020 - 2025',
+        'Thesis: A Deep Learning Approach to Build a Lightweight Skin Diseases Classifier by Means of Transfer Learning',
+        '',
+        'SKILLS',
+        'Proteus, ESP32, Arduino, AutoCAD, Simulink, MATLAB, Python, C Language, PowerPoint, Excel, Machine Learning',
+        '',
+        'CERTIFICATES & TRAINING',
+        '- Control Design Onramp with Simulink | MATLAB Academy | 2024',
+        '- 30-Day Webinar on PLC, VFD, HMI | Gobeshona Learning Academy | 2024',
+        '- Master Class on Machine Learning | Pantech Prolabs India Pvt Ltd | 2022',
+        '- Basic Computer Training (Grade A) | Bangladesh Technical Board | 2020',
+        '- Single Phase Electrical Wiring & Installation | Sylhet Engineering College | 2022',
+        '',
+        'INDUSTRIAL TRAINING',
+        'Training Institute for Chemical Industries (TICI) | Grade A+',
+        'Narsingdi, Bangladesh | 2023',
+        'Focus: Electrical Engineering & Instrumentation, Industrial Automation',
+        '',
+        'COMPETITIONS',
+        '- 2nd Runner Up: Technoventure 2.0, Sylhet Engineering College, 2020',
+        '- Participant: Robo Carnival 2024 - Industrial Line Tracker Segment',
+        '- Participant: First Technoxian Bangladesh - Line Following Robot, 2024',
+        '- Participant: Technoventure 3.0 - Line Follower Robot, 2024',
+        '- Participant: Ignition 2023 National Mechanical Festival - LFR Segment',
+        '',
+        'ACADEMIC PROJECTS',
+        '- Three-Phase Inverter System: IGBT and Arduino-based variable-frequency inverter.',
+        '- Real-Time Audio Analyzer: ESP32-based sound level and frequency measurement system.',
+        '- Home Automation & AC Regulation via IoT: Smart switching via mobile app and website.',
+        '- Smart Light Switch: Arduino-based manual and auto brightness control using TRIAC.',
+        '- Skin Disease Classifier (Thesis): Deep learning via transfer learning for classification.',
+        '',
+        'ORGANIZATIONAL ACTIVITIES',
+        'Active member and instructor, Sylhet Engineering College Robotics Club',
+        '',
+        'REFERENCE',
+        'Md. Shahid Iqbal',
+        'Assistant Professor & Dept Head (EEE), Sylhet Engineering College',
+        'Email: shahidiqbal_05@yahoo.com | Phone: 01916590472'
+      ].join('\n');
+
+      var blob = new Blob([cvContent], { type: 'text/plain' });
+      var url = window.URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'Avijit_Chakroborty_CV.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
